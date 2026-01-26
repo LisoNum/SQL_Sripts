@@ -1,0 +1,87 @@
+CREATE TABLE Champion ( 
+    Name VARCHAR(50) , 
+    Position VARCHAR(30) NOT NULL, 
+    Geschlecht VARCHAR(20), 
+    Reichweite INT CHECK (Reichweite >= 0), 
+    Region VARCHAR(50), 
+    Jahr_Ver INT CHECK (Jahr_Ver >= 2000), 
+    Ressource VARCHAR(30), 
+    Gattung VARCHAR(30), 
+    PRIMARY KEY (Name), 
+    FOREIGN KEY (Team_ID) REFERENCES Team(Team_ID) 
+); 
+ 
+CREATE TABLE Faehigkeit ( 
+    Name VARCHAR(50), 
+    Champion_Name VARCHAR(50), 
+    Belegung VARCHAR(20), 
+    Handlungsrichtung VARCHAR(20), 
+    PRIMARY KEY (Name, Champion_Name), 
+    FOREIGN KEY (Champion_Name) REFERENCES Champion(Name) 
+); 
+ 
+CREATE TABLE Effekt ( 
+    Effekt_ID INT , 
+    Schaden INT CHECK (Schaden >= 0), 
+    Verteidigung INT CHECK (Verteidigung >= 0), 
+    PRIMARY KEY (Effekt_ID) 
+); 
+ 
+CREATE TABLE Faehigkeit_Effekt ( 
+    Champion_Name VARCHAR(50), 
+    Faehigkeit_Name VARCHAR(50), 
+    Faehigkeit_ID INT, 
+    Schaden INT CHECK (Schaden >= 0), 
+    Buff VARCHAR(50), 
+    PRIMARY KEY (Champion_Name, Faehigkeit_Name, Effekt_ID), 
+    FOREIGN KEY (Champion_Name, Faehigkeit_Name) REFERENCES Faehigkeit(Name, 
+Champion_Name), 
+    FOREIGN KEY (Effekt_ID) REFERENCES Effekt(Effekt_ID) 
+); 
+ 
+CREATE TABLE Skins ( 
+    Name VARCHAR(50), 
+    Jahr_Er INT CHECK (Jahr_Er >= 2009), 
+    Reihe VARCHAR(50), 
+    Preis DECIMAL(8) CHECK (Preis >= 0), 
+    PRIMARY KEY (Name), 
+    FOREIGN KEY (Champion_Name) REFERENCES Champion(Name) 
+); 
+ 
+CREATE TABLE Item ( 
+    Name VARCHAR(50), 
+    Seltenheit VARCHAR(30), 
+    Typ VARCHAR(30), 
+    Preis DECIMAL(8,2) CHECK (Preis >= 0), 
+    PRIMARY KEY (Name) 
+); 
+ 
+ 
+CREATE TABLE Team ( 
+    Team_ID INT, 
+    Spieleranzahl INT CHECK (Spieleranzahl > 0), 
+    Farbe VARCHAR(30), 
+    PRIMARY KEY (Team_ID) 
+); 
+ 
+CREATE TABLE Spielmodus ( 
+    Spiel_ID INT, 
+    Gewinner VARCHAR(50), 
+    Dauer INT CHECK (Dauer > 0), 
+    PRIMARY KEY (Spiel_ID) 
+); 
+ 
+CREATE TABLE Klassisch ( 
+    Spiel_ID INT, 
+    Turmanzahl INT CHECK (Turmanzahl >= 0), 
+    Bosskills INT CHECK (Bosskills >= 0), 
+    PRIMARY KEY (Spiel_ID), 
+    FOREIGN KEY (Spiel_ID) REFERENCES Spielmodus(Spiel_ID)  
+); 
+
+CREATE TABLE Arena ( 
+    Spiel_ID INT, 
+    Runden INT CHECK (Runden > 0), 
+    PRIMARY KEY (Spiel_ID), 
+    FOREIGN KEY (Spiel_ID) REFERENCES Spielmodus(Spiel_ID) 
+);
