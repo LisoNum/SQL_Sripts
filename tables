@@ -8,6 +8,7 @@ DROP TABLE Skins;
 DROP TABLE Spielmodus CASCADE CONSTRAINTS;
 DROP TABLE Arena;
 DROP TABLE Klassisch;
+DROP TABLE Kauft;
  
 CREATE TABLE Item ( 
     Name VARCHAR(50) NOT NULL, 
@@ -100,4 +101,14 @@ CREATE TABLE Skins (
     FOREIGN KEY (Champion_Name) REFERENCES Champion(Name) 
 ); 
  
+CREATE TABLE Kauft (
+    Item_Name VARCHAR(50),
+    Champion_Name VARCHAR(50),
+    Art VARCHAR(50),
+    Verkaufspreis INT,
+    PRIMARY KEY (Item_Name, Champion_Name, Art),
+    FOREIGN KEY (Item_Name) REFERENCES Item(Name),
+    FOREIGN KEY (Champion_Name) REFERENCES Champion(Name)
+ );
+
 COMMIT;

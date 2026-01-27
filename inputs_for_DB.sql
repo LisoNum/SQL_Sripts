@@ -82,6 +82,15 @@ VALUES ('Aurora', 'Mitte', 'Weiblich', 'Fernkampf', 'Freljord', 2024, 'Mana', 'V
 INSERT INTO Champion(Name, Position, Geschlecht, Reichweite, Region, Jahr_Ver, Ressource, Gattung, Team_ID)
 VALUES ('Miss Fortune', 'ADC', 'Weiblich', 'Fernkampf', 'Bilgewasser', 2010, 'Mana', 'Mensch', 7366);
 
+--EXECUTE manage_Handel(Item_Name, Champion_Name, Art)
+EXECUTE MANAGE_HANDEL('Trinity Force', 'Lux', 'Kauf');
+EXECUTE MANAGE_HANDEL('Trinity Force', 'Lux', 'Verkauf');
+EXECUTE MANAGE_HANDEL('Heartsteel', 'Braum', 'Kauf');
+EXECUTE MANAGE_HANDEL('Ludens Companion', 'Miss Fortune', 'Kauf');
+EXECUTE MANAGE_HANDEL('Sundered Sky', 'Viego', 'Kauf');
+EXECUTE MANAGE_HANDEL('Locket of the Iron Solari', 'Braum', 'Kauf');
+EXECUTE MANAGE_HANDEL('Amplifying Tome', 'Hwei', 'Verkauf');
+
 --Faehigkeit(Name, Belegung, Handlungsrichtung, Champion_Name)
 INSERT INTO Faehigkeit(Name, Belegung, Handlungsrichtung, Champion_Name)
 VALUES ('Light Binding', 'Q', 'Aktiv', 'Lux');
