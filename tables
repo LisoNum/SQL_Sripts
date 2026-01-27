@@ -1,11 +1,11 @@
-DROP TABLE Item;
+DROP TABLE ITEM CASCADE CONSTRAINTS;
 DROP TABLE Effekt;
-DROP TABLE Team;
-DROP TABLE Champion;
-DROP TABLE Faehigkeit;
+DROP TABLE Team CASCADE CONSTRAINTS;
+DROP TABLE Champion CASCADE CONSTRAINTS;
+DROP TABLE Faehigkeit CASCADE CONSTRAINTS;
 DROP TABLE Faehigkeit_Effekt;
 DROP TABLE Skins;
-DROP TABLE Spielmodus;
+DROP TABLE Spielmodus CASCADE CONSTRAINTS;
 DROP TABLE Arena;
 DROP TABLE Klassisch;
  
@@ -21,8 +21,8 @@ CREATE TABLE Effekt (
     Schaden INT CHECK (Schaden >= 0), 
     Verteidigung INT CHECK (Verteidigung >= 0), 
     Item_Name VARCHAR(50),
-    PRIMARY KEY (Effekt_ID),
-    FOREIGN KEY (Item_Name) REFERENCES ITEM(Item.Name)
+    PRIMARY KEY (Effekt_ID, Item_Name),
+    FOREIGN KEY (Item_Name) REFERENCES ITEM(Name)
 ); 
  
  
@@ -56,14 +56,13 @@ CREATE TABLE Faehigkeit (
     FOREIGN KEY (Champion_Name) REFERENCES Champion(Name) 
 ); 
 
-CREATE TABLE Faehigkeit_Effekt ( 
-    Champion_Name VARCHAR(50), 
+CREATE TABLE Faehigkeit_Effekt (  
+    FaehigkeitEff_ID INT, 
     Faehigkeit_Name VARCHAR(50), 
-    Faehigkeit_ID INT, 
     Schaden INT CHECK (Schaden >= 0), 
     Buff VARCHAR(50), 
-    PRIMARY KEY (Champion_Name, Faehigkeit_Name), 
-    FOREIGN KEY (Champion_Name, Faehigkeit_Name) REFERENCES Faehigkeit(Name, Champion_Name)
+    PRIMARY KEY (FaehigkeitEff_ID, Faehigkeit_Name), 
+    FOREIGN KEY (Faehigkeit_Name) REFERENCES Faehigkeit(Name)
 ); 
 
 CREATE TABLE Skins ( 
