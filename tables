@@ -1,29 +1,28 @@
-CREATE TABLE Effekt ( 
-    Effekt_ID INT , 
-    Schaden INT CHECK (Schaden >= 0), 
-    Verteidigung INT CHECK (Verteidigung >= 0), 
-    PRIMARY KEY (Effekt_ID) 
-); 
- 
-CREATE TABLE Faehigkeit_Effekt ( 
-    Champion_Name VARCHAR(50), 
-    Faehigkeit_Name VARCHAR(50), 
-    Faehigkeit_ID INT, 
-    Schaden INT CHECK (Schaden >= 0), 
-    Buff VARCHAR(50), 
-    Effekt_ID INT,
-    PRIMARY KEY (Champion_Name, Faehigkeit_Name, Effekt_ID), 
-    FOREIGN KEY (Champion_Name, Faehigkeit_Name) REFERENCES Faehigkeit(Name, 
-Champion_Name), 
-    FOREIGN KEY (Effekt_ID) REFERENCES Effekt(Effekt_ID) 
-); 
+DROP TABLE Item;
+DROP TABLE Effekt;
+DROP TABLE Team;
+DROP TABLE Champion;
+DROP TABLE Faehigkeit;
+DROP TABLE Faehigkeit_Effekt;
+DROP TABLE Skins;
+DROP TABLE Spielmodus;
+DROP TABLE Arena;
+DROP TABLE Klassisch;
  
 CREATE TABLE Item ( 
     Name VARCHAR(50), 
     Seltenheit VARCHAR(30), 
-    Typ VARCHAR(30), 
-    Preis DECIMAL(8,2) CHECK (Preis >= 0), 
+    Preis INT CHECK (Preis >= 0), 
     PRIMARY KEY (Name) 
+); 
+
+CREATE TABLE Effekt (  
+    Effekt_ID INT,
+    Schaden INT CHECK (Schaden >= 0), 
+    Verteidigung INT CHECK (Verteidigung >= 0), 
+    Item_Name VARCHAR(50),
+    PRIMARY KEY (Effekt_ID),
+    FOREIGN KEY (Item_Name) REFERENCES ITEM(Item.Name)
 ); 
  
  
@@ -49,12 +48,22 @@ CREATE TABLE Champion (
 ); 
  
 CREATE TABLE Faehigkeit ( 
-    Name VARCHAR(50), 
-    Champion_Name VARCHAR(50), 
+    Name VARCHAR(50),  
     Belegung VARCHAR(20), 
     Handlungsrichtung VARCHAR(20), 
-    PRIMARY KEY (Name, Champion_Name), 
+    Champion_Name VARCHAR(50),
+    PRIMARY KEY (Name), 
     FOREIGN KEY (Champion_Name) REFERENCES Champion(Name) 
+); 
+
+CREATE TABLE Faehigkeit_Effekt ( 
+    Champion_Name VARCHAR(50), 
+    Faehigkeit_Name VARCHAR(50), 
+    Faehigkeit_ID INT, 
+    Schaden INT CHECK (Schaden >= 0), 
+    Buff VARCHAR(50), 
+    PRIMARY KEY (Champion_Name, Faehigkeit_Name), 
+    FOREIGN KEY (Champion_Name, Faehigkeit_Name) REFERENCES Faehigkeit(Name, Champion_Name)
 ); 
 
 CREATE TABLE Skins ( 
