@@ -10,34 +10,59 @@ DROP TABLE Arena;
 DROP TABLE Klassisch;
  
 CREATE TABLE Item ( 
-    Name VARCHAR(50), 
+    Name VARCHAR(50) NOT NULL, 
     Seltenheit VARCHAR(30), 
     Preis INT CHECK (Preis >= 0), 
     PRIMARY KEY (Name) 
 ); 
 
 CREATE TABLE Effekt (  
-    Effekt_ID INT,
+    Effekt_ID INT NOT NULL,
     Schaden INT CHECK (Schaden >= 0), 
     Verteidigung INT CHECK (Verteidigung >= 0), 
     Item_Name VARCHAR(50),
     PRIMARY KEY (Effekt_ID, Item_Name),
     FOREIGN KEY (Item_Name) REFERENCES ITEM(Name)
 ); 
+
+CREATE TABLE Spielmodus ( 
+    Spiel_ID INT NOT NULL, 
+    Gewinner VARCHAR(50), 
+    Dauer INT CHECK (Dauer > 0), 
+    PRIMARY KEY (Spiel_ID) 
+); 
+ 
+CREATE TABLE Klassisch ( 
+    Spiel_ID INT NOT NULL, 
+    Turmanzahl INT CHECK (Turmanzahl >= 0), 
+    Bosskills INT CHECK (Bosskills >= 0), 
+    PRIMARY KEY (Spiel_ID), 
+    FOREIGN KEY (Spiel_ID) REFERENCES Spielmodus(Spiel_ID)  
+); 
+
+CREATE TABLE Arena ( 
+    Spiel_ID INT NOT NULL, 
+    Runden INT CHECK (Runden > 0), 
+    PRIMARY KEY (Spiel_ID), 
+    FOREIGN KEY (Spiel_ID) REFERENCES Spielmodus(Spiel_ID) 
+);
  
  
 CREATE TABLE Team ( 
-    Team_ID INT, 
+    Team_ID INT NOT NULL, 
     Spieleranzahl INT CHECK (Spieleranzahl > 0), 
     Farbe VARCHAR(30), 
-    PRIMARY KEY (Team_ID) 
+    Spiel_ID INT,
+    PRIMARY KEY (Team_ID), 
+    FOREIGN KEY (Spiel_ID) REFERENCES Spielmodus(Spiel_ID)
+
 ); 
 
 CREATE TABLE Champion ( 
-    Name VARCHAR(50) , 
+    Name VARCHAR(50) NOT NULL, 
     Position VARCHAR(30) NOT NULL, 
     Geschlecht VARCHAR(20), 
-    Reichweite INT CHECK (Reichweite >= 0), 
+    Reichweite VARCHAR(20), 
     Region VARCHAR(50), 
     Jahr_Ver INT CHECK (Jahr_Ver >= 2000), 
     Ressource VARCHAR(30), 
@@ -48,7 +73,7 @@ CREATE TABLE Champion (
 ); 
  
 CREATE TABLE Faehigkeit ( 
-    Name VARCHAR(50),  
+    Name VARCHAR(50) NOT NULL,  
     Belegung VARCHAR(20), 
     Handlungsrichtung VARCHAR(20), 
     Champion_Name VARCHAR(50),
@@ -57,7 +82,7 @@ CREATE TABLE Faehigkeit (
 ); 
 
 CREATE TABLE Faehigkeit_Effekt (  
-    FaehigkeitEff_ID INT, 
+    FaehigkeitEff_ID INT NOT NULL, 
     Faehigkeit_Name VARCHAR(50), 
     Schaden INT CHECK (Schaden >= 0), 
     Buff VARCHAR(50), 
@@ -65,8 +90,8 @@ CREATE TABLE Faehigkeit_Effekt (
     FOREIGN KEY (Faehigkeit_Name) REFERENCES Faehigkeit(Name)
 ); 
 
-CREATE TABLE Skins ( 
-    Name VARCHAR(50), 
+CREATE TABLE Skins (
+    Name VARCHAR(50) NOT NULL, 
     Jahr_Er INT CHECK (Jahr_Er >= 2009), 
     Reihe VARCHAR(50), 
     Preis DECIMAL(8) CHECK (Preis >= 0), 
@@ -75,26 +100,4 @@ CREATE TABLE Skins (
     FOREIGN KEY (Champion_Name) REFERENCES Champion(Name) 
 ); 
  
-CREATE TABLE Spielmodus ( 
-    Spiel_ID INT, 
-    Gewinner VARCHAR(50), 
-    Dauer INT CHECK (Dauer > 0), 
-    PRIMARY KEY (Spiel_ID) 
-); 
- 
-CREATE TABLE Klassisch ( 
-    Spiel_ID INT, 
-    Turmanzahl INT CHECK (Turmanzahl >= 0), 
-    Bosskills INT CHECK (Bosskills >= 0), 
-    PRIMARY KEY (Spiel_ID), 
-    FOREIGN KEY (Spiel_ID) REFERENCES Spielmodus(Spiel_ID)  
-); 
-
-CREATE TABLE Arena ( 
-    Spiel_ID INT, 
-    Runden INT CHECK (Runden > 0), 
-    PRIMARY KEY (Spiel_ID), 
-    FOREIGN KEY (Spiel_ID) REFERENCES Spielmodus(Spiel_ID) 
-);
-
 COMMIT;
