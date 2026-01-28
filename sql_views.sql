@@ -1,0 +1,2 @@
+CREATE VIEW Legendäre_ITEMS (Name, Peis)
+AS SELECT Name, PREIS FROM ITEM WHERE Item.SELTENHEIT = 'Legendär';
