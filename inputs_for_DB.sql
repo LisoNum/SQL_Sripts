@@ -50,21 +50,21 @@ COMMIT;
 INSERT INTO ARENA(SPIEL_ID, RUNDEN)
 VALUES (4579, 12);
 
---Team(Team_ID, Spieleranzahl, Farbe)
-INSERT INTO Team(Team_ID, Spieleranzahl, Farbe)
-VALUES (1937, 5, 'Rot');
-INSERT INTO Team(Team_ID, Spieleranzahl, Farbe)
-Values (8473, 5, 'Rot');
-INSERT INTO Team(Team_ID, Spieleranzahl, Farbe)
-VALUES (6382, 5, 'Blau');
-INSERT INTO Team(Team_ID, Spieleranzahl, Farbe)
-VALUES (9924, 5, 'Blau');
-INSERT INTO Team(Team_ID, Spieleranzahl, Farbe)
-VALUES (4493, 2, 'Pink');
-INSERT INTO Team(Team_ID, Spieleranzahl, Farbe)
-VALUES (6473, 2, 'Gruen');
-INSERT INTO Team(Team_ID, Spieleranzahl, Farbe)
-VALUES (7366, 2, 'Lila');
+--Team(Team_ID, Spieleranzahl, Farbe, Spiel_ID)
+INSERT INTO Team(Team_ID, Spieleranzahl, Farbe, Spiel_ID)
+VALUES (1937, 5, 'Rot', 4565);
+INSERT INTO Team(Team_ID, Spieleranzahl, Farbe, Spiel_ID)
+Values (8473, 5, 'Rot', 4572);
+INSERT INTO Team(Team_ID, Spieleranzahl, Farbe, Spiel_ID)
+VALUES (6382, 5, 'Blau', 4565);
+INSERT INTO Team(Team_ID, Spieleranzahl, Farbe, Spiel_ID)
+VALUES (9924, 5, 'Blau', 4572);
+INSERT INTO Team(Team_ID, Spieleranzahl, Farbe, Spiel_ID)
+VALUES (4493, 2, 'Pink', 4579);
+INSERT INTO Team(Team_ID, Spieleranzahl, Farbe, Spiel_ID)
+VALUES (6473, 2, 'Gruen', 4579);
+INSERT INTO Team(Team_ID, Spieleranzahl, Farbe, Spiel_ID)
+VALUES (7366, 2, 'Lila', 4579);
 
 --Champion(Name, Position, Geschlecht, Reichweite, Region, Jahr_Ver, Ressource, Gattung, Team_ID)
 INSERT INTO Champion(Name, Position, Geschlecht, Reichweite, Region, Jahr_Ver, Ressource, Gattung, Team_ID)
